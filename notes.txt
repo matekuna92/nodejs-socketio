@@ -9,4 +9,8 @@ CREATE USER nodeuser IDENTIFIE BY password DEFAULT TABLESPACE USERS TEMPORARY TA
 4. developer-ben csatlakozni új userként (ilyenkor az other users-nél nem látszódik a jelenlegi, amivel beléptünk)
 
 5. Tábla létrehozás
-6. nodejs index fájl
+
+-- NODEJS -- 
+
+npm init -> megadjuk az adatokat, ami alapján létrejön a package.json fájl
+nodejs index fájl, csatlakozás megkísérlése

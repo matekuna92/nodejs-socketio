@@ -1,0 +1,27 @@
+{
+  "name": "nodeacle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http": "0.0.0",
+    "oracledb": "^4.2.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matekuna92/nodejs-socketio.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matekuna92/nodejs-socketio/issues"
+  },
+  "homepage": "https://github.com/matekuna92/nodejs-socketio#readme"
+}
