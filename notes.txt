@@ -1,0 +1,12 @@
+1. új connection sqldeveloper-ben SYSTEM-ként
+2. developer-ben nem enged új usert létrehozni, ezért sql plus-ban hozzuk létre:
+
+conn sys as sysdba (root);
+alter session set "_ORACLE_SCRIPT"=true;
+CREATE USER nodeuser IDENTIFIE BY password DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP;  (grafikusan is ezeket állítanánk be)
+
+3. Developer-ben létrejött az Other Users alatt az új user -> PRIVILEGES fül : CONNECT és RESOURCE jogosultás + Quotas-ban USERS namespace-re unlimited-et állítunk, bepipálni
+4. developer-ben csatlakozni új userként (ilyenkor az other users-nél nem látszódik a jelenlegi, amivel beléptünk)
+
+5. Tábla létrehozás
+6. nodejs index fájl
