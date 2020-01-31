@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NodeJS - OracleDB - SocketIO</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <table id="employee-table" class="table table-striped table-bordered mt-10">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>DEPARTMENT_ID</th>
+                    <th>NAME</th>
+                    <th>EMAIL</th>
+                    <th>COST_CENTER</th>
+                    <th>DATE_HIRED</th>
+                    <th>JOB</th>
+                </tr>
+
+            </thead>
+            
+            <tbody>
+            </tbody>
+
+        </table>
+
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+
+    $(document).ready(function()
+    {
+        console.log('OK');
+        let socket = io();
+
+        fetchEmployees();
+
+        socket.on('change', function(employees)
+        {
+            showEmployees(employees);
+        });
+    })
+
+    function fetchEmployees()
+    {
+        $.get('/api/employees', function(employees)
+        {
+            showEmployees(employees);
+        })
+    }
+
+    function showEmployees(employees)
+    {
+        let employeeList = $('#employee-table').find('tbody');
+
+        employeeList.empty();
+
+        employees.forEach(function(emp)
+        {
+            employeeList.append(
+                '<tr>' + 
+                '<td>' + emp.ID + '</td>' +
+                '<td>' + emp.DEPARTMENT_ID + '</td>' +
+                '<td>' + emp.NAME + '</td>' +
+                '<td>' + emp.EMAIL + '</td>' +
+                '<td>' + emp.COST_CENTER + '</td>' +
+                '<td>' + emp.DATE_HIRED + '</td>' +
+                '<td>' + emp.JOB + '</td>' +
+                '</tr>'
+            );
+        });
+    }
+
+</script>
+
+</body>
+</html>
