@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "cross-env": "^7.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http": "0.0.0",
@@ -14,7 +15,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "SET PORT=8090 && nodemon index.js"
   },
   "repository": {
     "type": "git",

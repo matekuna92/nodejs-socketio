@@ -4,24 +4,41 @@ const http = require('http');
 const winston = require('winston');
 const oracledb = require('oracledb');
 const socketio = require('socket.io');
+const crossenv = require('cross-env');
 const dbConfig = require('./server/dbconfig');
 ///const serveStatic = require('serve-static');
 
-const app = express();
-const httpserver = http.Server(app);
-const io = socketio(httpserver);
 const PORT = process.env.PORT || 8080;
+const app = express();
+const httpserver = http.createServer(app);
 
-app.listen(PORT);
+const server = app.listen(PORT);
+const io = require('socket.io').listen(server);
+console.log(PORT);
+
+io.on('connection', socket => {
+    console.log('a user connected');
+    
+    socket.on('disconnect', function() {
+      console.log('user disconnected');
+    });
+  });
+
+io.on('change', function(employees)
+{
+    console.log('DB changed!');
+  //  showEmployees(employees);
+});
 
 /// app.use('/', serveStatic(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-    winston.debug(`Your port is ${PORT}`);
+ //   winston.debug(`Your port is ${PORT}`);
     res.sendFile(__dirname + '/public/index.html'); // serve-static package is erre való, a sendFile beépített function
     // res.end('Hello World!');
 });
 
+// endpoint létrehozása a dolgozók számára, az itt lévő JSON objektumot kérjük el a get-tel, és jelenítjük meg a táblázatban
 app.get('/api/employees', (req, res, next) => {
     getEmployees(req, res, next, 'API');
 })
@@ -59,7 +76,8 @@ function getEmployees(req, res, next, context)
 
                         if (context === 'API') 
                         {
-                            res.send(results.rows); console.log(results.rows);
+                            res.send(results.rows); 
+                            //console.log(results.rows);
                         } else if (context === 'SOCKET_IO') 
                         {
                             io.emit('change', results.rows);
