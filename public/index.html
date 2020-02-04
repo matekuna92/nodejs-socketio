@@ -12,6 +12,8 @@
 
     <div class="container">
 
+        <button class="add-employee-button">Add New Employee</button>
+
         <table id="employee-table" class="table table-striped table-bordered table-responsive">
 
             <thead>
@@ -42,11 +44,37 @@
 
 <script>
 
-let socket = io();
-
     $(document).ready(function()
     {
-        console.log('OK');
+        let socket = io();
+
+        $('.add-employee-button').on('click', function()
+        {
+            // Kiküld egy eseményt a socket számára a megadott string névvel
+            // a zárójelben megadott kifejezés alapján azonosítjuk be az index.js-ben az eseményt
+            // socket.on('employee added') -> mi történjen, amikor ezt az eseményt kiküldtük 
+            
+            socket.emit('employee added');
+
+           /* socket.on('employee added', function(){ 
+                console.log('Added successfully!');
+            })
+            */
+
+            /* működik !! 
+            socket.on('newMessage', function(message){ 
+                console.log(message); 
+            }); 
+            **/
+
+        })
+
+        /*
+        socket.on('refresh???', function()
+        {
+            console.log('employee added successfully!');
+        })
+        */
 
         fetchEmployees();
     })
